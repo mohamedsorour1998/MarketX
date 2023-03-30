@@ -1,0 +1,3 @@
+docker tag marketx-backend docker.io/mohamedsorour/marketx-backend
+docker login mohamedsorour
+docker push mohamedsorour/marketx-backend

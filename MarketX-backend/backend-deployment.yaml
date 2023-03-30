@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: django-backend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: django-backend
+    spec:
+      containers:
+        - name: marketx-backend
+          image: marketx-backend
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DB_ENGINE
+              value: django.db.backends.postgresql
+            - name: DB_NAME
+              value: mydatabase
+            - name: DB_USER
+              value: root
+            - name: DB_PASSWORD
+              value: Sorour_1998
+            - name: DB_HOST
+              value: postgres
+            - name: DB_PORT
+              value: "5432"
+          volumeMounts:
+            - name: postgres-persistent-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-persistent-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
