@@ -165,7 +165,7 @@ class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         # check if the order belongs to the user
         if order.user != user:
             return Response(
-                {'error': 'You are not allowed to do this checkout'},
+                {'error': 'You are not allowed to access this order'},
                 status=status.HTTP_403_FORBIDDEN)
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
@@ -196,15 +196,13 @@ class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         else:
             return Response(status=status.HTTP_403_FORBIDDEN)
 
-    def perform_destroy(self, instance):
-        instance.delete()
-
 
 # this is the view for the checkout model
 # when  http://127.0.0.1:8000/my_ecommerce_api/users/1/orders/checkout is called,
 # it will return all checkout details for user 1  and it will available only for user 1
 class CheckoutListView(generics.ListAPIView):
     serializer_class = CheckoutSerializer
+
     # using jwt token to authenticate
     authentication_classes = (JWTAuthentication, )
     permission_classes = (IsAuthenticated, )
@@ -218,4 +216,10 @@ class CheckoutListView(generics.ListAPIView):
         orders = Order.objects.filter(user=user)
         # get all checkouts for this user
         checkouts = Checkout.objects.filter(order__in=orders)
-        return checkouts
+        # check if the order belongs to the user if so return the checkout
+        if checkouts:
+            return checkouts
+        else:
+            return Response(
+                {'error': 'You are not allowed to access this checkout'},
+                status=status.HTTP_403_FORBIDDEN)
