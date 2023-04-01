@@ -87,8 +87,8 @@ class Order(models.Model):
 
 class Checkout(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    order = models.OneToOneField(Order, on_delete=models.DO_NOTHING, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True)
     address = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
