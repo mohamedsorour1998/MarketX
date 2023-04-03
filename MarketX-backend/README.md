@@ -1,81 +1,151 @@
-Project Description:
+# Ecommerce API
 
-The project is to create an ecommerce API using Django Rest Framework (DRF) that allows users to browse and buy products online. The API should be secure and allow users to authenticate using tokens, and manage categories and products.
+This project is an ecommerce API built using Django Rest Framework (DRF) that allows users to browse and buy products online. The API supports secure user authentication using tokens and allows users to manage categories and products.
 
-Key Features:
+## Key Features
 
-	1-User authentication using tokens
-	2-Category management system
-	3-Product catalog with search and filter functionality
-	4-User management system
-	5-Checkout functionality
-	
-Requirements:
+1. User authentication using tokens
+2. Category management system
+3. Product catalog with search and filter functionality
+4. User management system
+5. Checkout functionality
 
-	1-The project should be built using Django Rest Framework (DRF) and use PostgreSQL database.
-	2 User authentication should be implemented using token-based authentication, and the tokens should expire after an hour.
-	3-Users should be able to browse products by categories and search for specific products using keywords.
-	4- Categories should be managed through DRF's API endpoints.
-	5- Products should be able to be added, edited and deleted through DRF's API endpoints.
-	6- Users should be able to create an account, update their profile, and view their order history through DRF's API endpoints.
-	7 -The checkout system should collect user information, shipping details, and payment information through DRF's API endpoints.
+## Requirements
+
+1. Django Rest Framework (DRF)
+2. PostgreSQL database
+
+## Installation
+
+1. Clone the repository:
+
+git clone https://github.com/mohamedsorour1998/MarketX.git
 
 
+2. Change to the project directory:
 
-Deliverables:
+cd MarketX-backend/ecommerce_api_project/
 
-	Source code and project documentation.
-	A working demo of the API hosted on a live server OR (video on local environment in case you have not a host)
-	User manual and technical documentation.
-	Presentation of the project to the evaluation committee. (not required based on the need)
 
----------------------------------------------------------------------------------------------------------
+3. Create a virtual environment and activate it:
 
-This is a high-level overview of how i created  ecommerce API using:
-Django Rest Framework (DRF), PostgreSQL database, and token-based authentication.
-We'll go through the main steps involved in creating this project. 
+python3 -m venv venv
+source venv/bin/activate
 
-### Step 1: Set up the project environment
 
-1. Install Django, DRF, PostgreSQL, and Simple JWT:
-2. Create a new Django project:
-3. Navigate to the project folder and create a new app:
-4. Configure the PostgreSQL database and DRF in `ecommerce/settings.py`:
-5. Migrate the database:
+4. Install the required packages:
 
-### Step 2: Implement User Authentication
+pip install -r requirements.txt
 
-1. Create a custom user model in `api/models.py` with the required fields.
-2. Configure JWT authentication in `ecommerce/settings.py`:
-3. Create serializers, views, and URLs for user registration and authentication in `api` app.
 
-### Step 3: Implement Category Management
+5. Set up the PostgreSQL database (refer to the [official documentation](https://www.postgresql.org/docs/current/tutorial-install.html) for installation instructions).
 
-1. Create a Category model in `api/models.py`.
-2. Create a Category serializer in `api/serializers.py`.
-3. Create Category viewsets in `api/views.py`.
-4. Add Category URLs in `api/urls.py`.
+6. Update the `DATABASES` setting in `settings.py` with your PostgreSQL database credentials:
+python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'your_db_name',
+        'USER': 'your_db_user',
+        'PASSWORD': 'your_db_password',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
-### Step 4: Implement Product Catalog
 
-1. Create a Product model in `api/models.py`.
-2. Create a Product serializer in `api/serializers.py`.
-3. Create Product viewsets in `api/views.py` with search and filter functionality.
-4. Add Product URLs in `api/urls.py`.
+7. Run the initial migrations:
 
-### Step 5: Implement User Management
+python manage.py migrate
 
-1. Create serializers and viewsets for user profiles and order history in `api` app.
-2. Add necessary URLs in `api/urls.py`.
 
-### Step 6: Implement Checkout Functionality
+8. Start the development server:
 
-1. Create models for Orders, OrderItems, and ShippingInfo in `api/models.py`.
-2. Create serializers for Orders, OrderItems, and ShippingInfo in `api/serializers.py`.
-3. Create viewsets for Orders, OrderItems, and ShippingInfo in `api/views.py`.
-4. Add necessary URLs in `api/urls.py`.
+python manage.py runserver
 
-### Step 7: Testing and Deployment
 
-1. Test your API endpoints using tools like Postman or by writing test cases.
-2. Deploy your application to a server (e.g., Heroku, AWS, or Digital Ocean).
+## API Endpoints
+
+### Users
+
+* List and create users: `POST /users/`
+* Retrieve, update, and delete a specific user: `GET, PUT, DELETE /users/<int:pk>/`
+* List and create orders for a specific user: `GET, POST /users/<int:pk>/orders/`
+* Retrieve, update, and delete a specific order: `GET, PUT, DELETE /users/<int:pk>/orders/<int:pk2>/`
+* List and create checkouts for a specific user: `GET, POST /users/<int:pk>/orders/checkout/`
+
+### Categories
+
+* List and create categories: `GET, POST /categories/`
+* Retrieve, update, and delete a specific category: `GET, PUT, DELETE /categories/<int:pk>/`
+
+### Products
+
+* List and create products: `GET, POST /products/`
+* Retrieve, update, and delete a specific product: `GET, PUT, DELETE /products/<int:pk>/`
+
+### Authentication
+
+* Obtain a token pair: `POST /token/`
+* Refresh a token: `POST /token/refresh/`
+
+## Models
+
+### User
+
+* `first_name`
+* `last_name`
+* `email`
+* `password`
+* `phone`
+* `address`
+* `city`
+* `state`
+* `zip_code`
+* `country`
+* `date_joined`
+* `last_login`
+* `is_staff`
+
+### Category
+
+* `name`
+* `description`
+
+### Product
+
+* `name`
+* `description`
+* `price`
+* `category` (foreign key to Category)
+
+### Order
+
+* `user` (foreign key to User)
+* `product` (foreign key to Product)
+* `quantity`
+* `date_ordered`
+* `is_complete`
+
+### Checkout
+
+* `user` (foreign key to User)
+* `order` (one-to-one field with Order)
+* `address`
+* `city`
+* `state`
+* `zip_code`
+* `country`
+* `product`
+* `quantity`
+* `date_ordered`
+* `is_complete`
+* `payment_method`
+
+## Demo
+
+A working demo of the API can be hosted on a live server or presented through a video on a local environment.
+
+## Documentation
+
+This README serves as a user manual and technical documentation for the project.
