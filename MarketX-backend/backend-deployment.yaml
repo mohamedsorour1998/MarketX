@@ -14,10 +14,9 @@ spec:
     spec:
       containers:
         - name: marketx-backend
-          command: ["python", "manage.py", "runserver", "0.0.0.0:8080"]
           image: mohamedsorour/marketx-backend
           ports:
-            - containerPort: 8080
+            - containerPort: 8000
           env:
             - name: DB_ENGINE
               value: django.db.backends.postgresql
@@ -31,10 +30,3 @@ spec:
               value: postgres
             - name: DB_PORT
               value: "5432"
-          volumeMounts:
-            - name: postgres-persistent-storage
-              mountPath: /var/lib/postgresql/data
-      volumes:
-        - name: postgres-persistent-storage
-          persistentVolumeClaim:
-            claimName: postgres-pvc

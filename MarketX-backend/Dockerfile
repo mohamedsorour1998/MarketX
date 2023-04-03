@@ -10,5 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY /ecommerce_api_project .
 # Expose port 8000 to the outside world
 EXPOSE 8000
-# start the app
-CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8080"]
+# entrypoint means the command that will be executed when the container starts
+ENTRYPOINT ["python3"] 
+# command means the arguments that will be passed to the entrypoint
+CMD ["manage.py", "runserver", "0.0.0.0:8000"]

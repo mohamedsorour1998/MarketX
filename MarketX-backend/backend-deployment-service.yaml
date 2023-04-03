@@ -4,9 +4,9 @@ metadata:
   name: backend-deployment-service
 spec:
   ports:
-  - port: 8080
+  - port: 8000
     protocol: TCP
-    targetPort: 8080
+    targetPort: 8000
   selector:
     app: django-backend
   type: NodePort
