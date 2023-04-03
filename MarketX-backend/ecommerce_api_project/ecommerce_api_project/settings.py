@@ -76,7 +76,7 @@ DATABASES = {
         'NAME': 'mydatabase',
         'USER': 'root',
         'PASSWORD': 'Sorour_1998',
-        'HOST': '127.0.0.1',
+        'HOST': 'postgres-deployment-service',
         'PORT': '5432',
     }
 }

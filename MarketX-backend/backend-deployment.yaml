@@ -14,9 +14,10 @@ spec:
     spec:
       containers:
         - name: marketx-backend
-          image: marketx-backend
+          command: ["python", "manage.py", "runserver", "0.0.0.0:8080"]
+          image: mohamedsorour/marketx-backend
           ports:
-            - containerPort: 8000
+            - containerPort: 8080
           env:
             - name: DB_ENGINE
               value: django.db.backends.postgresql
