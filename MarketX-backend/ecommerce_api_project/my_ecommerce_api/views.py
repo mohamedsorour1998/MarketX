@@ -48,7 +48,7 @@ class ProductListCreateView(generics.ListCreateAPIView):
     # adding filter and search functionality
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['category']
-    SearchFilter = ['name', 'description']
+    search_fields = ['name', 'description']
 
 
 class ProductRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
