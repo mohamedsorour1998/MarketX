@@ -1,4 +1,4 @@
 docker build -t marketx-backend .
 docker tag marketx-backend docker.io/mohamedsorour/marketx-backend
-docker login mohamedsorour
+docker login -u mohamedsorour
 docker push mohamedsorour/marketx-backend

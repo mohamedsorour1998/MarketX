@@ -7,6 +7,8 @@ from rest_framework import generics, filters, status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
+# import viewsets
+from rest_framework import viewsets
 
 
 # Create your views here.
@@ -46,8 +48,16 @@ class ProductListCreateView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     permission_classes = (permissions.AllowAny, )
     # adding filter and search functionality
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_backends = [SearchFilter, DjangoFilterBackend]
     filterset_fields = ['category']
+    search_fields = ['name', 'description']
+
+
+class ProductSearch(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = (permissions.AllowAny, )
+    filter_backends = [SearchFilter]
     search_fields = ['name', 'description']
 
 
