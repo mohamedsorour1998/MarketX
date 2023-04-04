@@ -81,7 +81,8 @@ python manage.py runserver
 
 ### Products
 
-* List and create products: `GET, POST /products/`
+* List and create products, also filter them by category: `GET, POST /products/`
+* Search for products by keyword: `GET, POST /products/search/`
 * Retrieve, update, and delete a specific product: `GET, PUT, DELETE /products/<int:pk>/`
 
 ### Authentication
