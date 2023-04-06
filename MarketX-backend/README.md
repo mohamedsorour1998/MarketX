@@ -1,6 +1,12 @@
 # Ecommerce API
 
-This project is an ecommerce API built using Django Rest Framework (DRF) that allows users to browse and buy products online. The API supports secure user authentication using tokens and allows users to manage categories and products.
+This project is an ecommerce API built using Django Rest Framework (DRF) that allows users to browse and buy products 
+online. The API supports secure user authentication using tokens and allows users to manage categories and products.
+
+## Demo
+
+A working demo of the API can be hosted on a live server or presented through a video on a local environment.
+this is a link to the demo video: https://www.linkedin.com/feed/update/urn:li:activity:7049455662342234112/
 
 ## Key Features
 
@@ -143,9 +149,6 @@ python manage.py runserver
 * `is_complete`
 * `payment_method`
 
-## Demo
-
-A working demo of the API can be hosted on a live server or presented through a video on a local environment.
 
 ## Documentation
 
