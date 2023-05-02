@@ -74,7 +74,7 @@ python manage.py runserver
 
 ### Users
 
-* List and create users: `POST /users/`
+* List and create users: `GET, POST /users/`
 * Retrieve, update, and delete a specific user: `GET, PUT, DELETE /users/<int:pk>/`
 * List and create orders for a specific user: `GET, POST /users/<int:pk>/orders/`
 * Retrieve, update, and delete a specific order: `GET, PUT, DELETE /users/<int:pk>/orders/<int:pk2>/`
