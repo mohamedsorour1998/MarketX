@@ -23,7 +23,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: MarketX-backend
-        dockerfile: MarketX-backend/Dockerfile
+        file: MarketX-backend/Dockerfile
         push: true
         tags: mohamedsorour/marketx-backend:latest
 
@@ -31,6 +31,6 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: MarketX-frontend
-        dockerfile: MarketX-frontend/ecommerce_angular_project/Dockerfile
+        file: MarketX-frontend/Dockerfile
         push: true
         tags: mohamedsorour/marketx-frontend:latest
