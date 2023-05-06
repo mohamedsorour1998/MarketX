@@ -30,7 +30,7 @@ jobs:
     - name: Build and push MarketX-frontend image
       uses: docker/build-push-action@v2
       with:
-        context: MarketX-frontend
+        context: MarketX-frontend/ecommerce_angular_project
         file: MarketX-frontend/ecommerce_angular_project/Dockerfile
         push: true
         tags: mohamedsorour/marketx-frontend:latest
