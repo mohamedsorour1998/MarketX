@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: marketx-backend
-          image: mohamedsorour/marketx-backend
+          image: mohamedsorour/marketx-backend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           env:
