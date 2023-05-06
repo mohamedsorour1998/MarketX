@@ -24,16 +24,22 @@ SECRET_KEY = 'django-insecure-dqgf1c$ot0q%lne9q#5j2ik*&%m^$my_pet@1z2+v$hy2!_a*=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['34.171.161.166', '127.0.0.1']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin', 'django.contrib.auth',
-    'django.contrib.contenttypes', 'django.contrib.sessions',
-    'django.contrib.messages', 'django.contrib.staticfiles',
-    'my_ecommerce_api', 'rest_framework', 'rest_framework_simplejwt',
-    'django_filters'
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'my_ecommerce_api',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'django_filters',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -44,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerce_api_project.urls'
@@ -76,10 +83,13 @@ DATABASES = {
         'NAME': 'mydatabase',
         'USER': 'root',
         'PASSWORD': 'Sorour_1998',
-        'HOST': 'postgres-deployment-service',
+        # 'HOST': 'postgres-deployment-service',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

@@ -1,24 +1,30 @@
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
 
-class User(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=254)
-    password = models.CharField(max_length=50)
-    phone = models.CharField(max_length=50)
-    address = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    zip_code = models.CharField(max_length=50)
-    country = models.CharField(max_length=50)
+class User(AbstractUser):
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    email = models.EmailField(max_length=50, unique=True)
+    password = models.CharField(max_length=128)
+    address = models.CharField(max_length=100)
+    phone = models.CharField(max_length=30)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=20)
+    zip_code = models.CharField(max_length=20)
+    country = models.CharField(max_length=20)
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
     is_staff = models.BooleanField(default=False)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
         return self.first_name + " " + self.last_name

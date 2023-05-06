@@ -33,7 +33,8 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
-        
+
+
 class CheckoutSerializer(serializers.ModelSerializer):
     # make order, user and product fields as name instead of id
     User = serializers.StringRelatedField()
@@ -42,3 +43,5 @@ class CheckoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Checkout
         fields = '__all__'
+
+
