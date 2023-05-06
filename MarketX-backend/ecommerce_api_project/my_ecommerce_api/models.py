@@ -21,10 +21,10 @@ class User(AbstractUser):
     last_login = models.DateTimeField(auto_now=True)
     is_staff = models.BooleanField(default=False)
 
-    objects = CustomUserManager()
+#     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
         return self.first_name + " " + self.last_name
