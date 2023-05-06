@@ -5,7 +5,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import User, Category, Product, Order, Checkout
-from .serializers import LoginSerializer, RegisterSerializer, UserSerializer, CategorySerializer, ProductSerializer, OrderSerializer, CheckoutSerializer
+from .serializers import  UserSerializer, CategorySerializer, ProductSerializer, OrderSerializer, CheckoutSerializer
+# , LoginSerializer, RegisterSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from django.contrib.auth.hashers import make_password
