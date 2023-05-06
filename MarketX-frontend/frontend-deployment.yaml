@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: angular-frontend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: angular-frontend
+    spec:
+      containers:
+        - name: marketx-frontend
+          image: mohamedsorour/marketx-frontend
+          ports:
+            - containerPort: 4200

@@ -1,0 +1,4 @@
+docker build -t marketx-frontend .
+docker tag marketx-frontend docker.io/mohamedsorour/marketx-frontend
+docker login -u mohamedsorour
+docker push mohamedsorour/marketx-frontend
