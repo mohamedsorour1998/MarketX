@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 interface LoginForm {
   email: string;
@@ -19,27 +20,33 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+
+    private http: HttpClient
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
-
+  credentials: { username: string; password: string };
   onSubmit() {
     if (this.loginForm.invalid) {
       return;
     }
 
-    const formValues: LoginForm = this.loginForm.value;
-
-    this.authService.login(formValues.email, formValues.password).subscribe(
-      () => {
+    const payload = {
+      email: this.loginForm.get('email')?.value,
+      password: this.loginForm.get('password')?.value,
+    };
+    this.authService.login(payload).subscribe(
+      (response: any) => {
+        console.log('User logged in successfully');
         this.router.navigate(['/profile']);
+        console.log(response);
       },
       (error) => {
-        console.error('Login failed:', error);
+        console.log('Error logging in', error);
       }
     );
   }

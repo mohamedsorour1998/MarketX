@@ -7,32 +7,17 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'https://api.example.com/users';
+  private readonly API_URL_USER_PROFILE =
+    'http://127.0.0.1:8000/my_ecommerce_api/profile/';
+  // private readonly API_URL_USER_PROFILE = 'http://127.0.0.1:8000/my_ecommerce_api/profile/';
 
   constructor(private http: HttpClient) {}
 
-  // Get all users
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
-  }
+  getUserProfile(): Observable<User> {
+    const httpOptions = {
+      withCredentials: true, // Include cookies in the request
+    };
 
-  // Get user by ID
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`);
-  }
-
-  // Create a new user
-  createUser(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, user);
-  }
-
-  // Update an existing user
-  updateUser(id: number, user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${id}`, user);
-  }
-
-  // Delete a user
-  deleteUser(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    return this.http.get<User>(this.API_URL_USER_PROFILE, httpOptions);
   }
 }

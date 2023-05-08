@@ -5,15 +5,23 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import User, Category, Product, Order, Checkout
-from .serializers import  UserSerializer, CategorySerializer, ProductSerializer, OrderSerializer, CheckoutSerializer
-# , LoginSerializer, RegisterSerializer
+from .serializers import UserSerializer, CategorySerializer, ProductSerializer, OrderSerializer, CheckoutSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from django.contrib.auth.hashers import make_password
-# import viewsets
 from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from rest_framework.views import APIView
+from rest_framework.exceptions import AuthenticationFailed
+import jwt
+import datetime
+from rest_framework.authentication import get_authorization_header
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.exceptions import APIException, AuthenticationFailed
+from .serializers import UserSerializer
+from rest_framework.permissions import AllowAny
 
 
 # Create your views here.
@@ -206,3 +214,25 @@ class CheckoutListView(generics.ListAPIView):
             return Response(
                 {'error': 'You are not allowed to access this checkout'},
                 status=status.HTTP_403_FORBIDDEN)
+
+# this is the view for the user 
+class UserCreate(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (AllowAny,)
+
+
+class UserProfile(generics.RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
+
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

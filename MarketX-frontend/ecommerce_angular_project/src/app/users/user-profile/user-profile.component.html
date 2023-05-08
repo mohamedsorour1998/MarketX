@@ -1,1 +1,25 @@
-<p>user-profile works!</p>
+<div *ngIf="user" class="container mt-5">
+  <h1 class="mb-4">Welcome, {{ user.first_name }} {{ user.last_name }}</h1>
+  <div class="card">
+    <div class="card-header">
+      <h2>User Profile</h2>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+      <p class="card-text">Email: {{ user.email }}</p>
+      <p class="card-text">Phone: {{ user.phone }}</p>
+      <p class="card-text">
+        Address: {{ user.address }}, {{ user.city }}, {{ user.state }}
+        {{ user.zip_code }}, {{ user.country }}
+      </p>
+      <p class="card-text">Date Joined: {{ user.date_joined | date }}</p>
+      <p class="card-text">Last Login: {{ user.last_login | date }}</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!user" class="container mt-5">
+  <h1>Not Logged In</h1>
+  <p>Please log in to view your profile.</p>
+  <button routerLink="/login" class="btn btn-primary">Login</button>
+</div>

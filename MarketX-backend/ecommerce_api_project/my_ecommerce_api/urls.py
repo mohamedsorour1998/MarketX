@@ -1,8 +1,8 @@
 from django.urls import path, include
-from .views import UserListCreateView, UserRetrieveUpdateDestroyView, CategoryListCreateView, CategoryRetrieveUpdateDestroyView, ProductListCreateView, ProductRetrieveUpdateDestroyView, OrderListCreateView, OrderRetrieveUpdateDestroyView, CheckoutListView, ProductSearch 
-# LoginView, RegisterView
+from .views import LogoutView, UserCreate, UserListCreateView, UserRetrieveUpdateDestroyView, CategoryListCreateView, CategoryRetrieveUpdateDestroyView, ProductListCreateView, ProductRetrieveUpdateDestroyView, OrderListCreateView, OrderRetrieveUpdateDestroyView, CheckoutListView, ProductSearch, UserProfile
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView)
+from .custom_token_views import CustomTokenObtainPairView
 
 urlpatterns = [
     path('users/', UserListCreateView.as_view(), name='user-list'),
@@ -30,8 +30,11 @@ urlpatterns = [
     path('products/search/',
          ProductSearch.as_view({'get': 'list'}),
          name='product-search'),
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/',
+         CustomTokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-#     path('login/', LoginView.as_view(), name='login'),
-#     path('register/', RegisterView.as_view(), name='register'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('register/', UserCreate.as_view(), name='register'),
+    path('profile/', UserProfile.as_view(), name='profile'),
 ]

@@ -1,113 +1,68 @@
-// auth.service.ts
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
-import { User } from '../models/user.model';
-import { JwtHelperService } from '@auth0/angular-jwt';
-
-interface AuthResponse {
-  access: string;
-  refresh: string;
-}
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API_URL = 'https://your-api.example.com/token/';
-  private readonly API_URL_CREATE_USER =
-    'http://34.171.161.166:8000/my_ecommerce_api/users/';
-  private access: string | null = null;
-  private refresh: string | null = null;
-  private userSubject = new BehaviorSubject<User | null>(null);
-  public user$ = this.userSubject.asObservable();
-  private jwtHelper = new JwtHelperService();
+  private readonly apiUrl = 'http://127.0.0.1:8000/my_ecommerce_api';
+  private loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {
-    const userData = JSON.parse(localStorage.getItem('user') || 'null');
-    if (userData) {
-      this.userSubject.next(userData);
-    }
-  }
-  /*When the user submits the login form,
-  the login method in the AuthService is called with the user's entered username and password.
-  The login method sends a POST request to the server with the provided username and password.
-  If the server verifies that the submitted credentials are correct,
-  it will generate and return a JWT access token and a refresh token.
-  The AuthService will then call the handleAuthResponse method,
-  which stores the tokens and decodes the user data from the access token.
-  The user data will be stored locally and set in the userSubject BehaviorSubject.
-  If the server determines that the submitted credentials are incorrect,
-  it should return an error response (e.g., with a 401 Unauthorized status).
-  In this case, the AuthService will not call the handleAuthResponse method,
-  and the user will not be authenticated.*/
-  login(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(this.API_URL, { email, password }).pipe(
-      tap((response) => {
-        this.handleAuthResponse(response);
-      })
-    );
+  constructor(private http: HttpClient, private router: Router) {
+    this.loggedIn.next(!!localStorage.getItem('access_token'));
   }
 
-  register(user: User): Observable<any> {
-    return this.http.post(this.API_URL_CREATE_USER, user);
+  register(user: any) {
+    return this.http.post(`${this.apiUrl}/register/`, user);
   }
 
-  refreshToken(): Observable<{ access: string }> {
+  login(credentials: { email: string; password: string }) {
     return this.http
-      .post<{ access: string }>(`${this.API_URL}refresh/`, {
-        refresh: this.refresh,
-      })
+      .post<{ access: string; refresh: string }>(
+        `${this.apiUrl}/token/`,
+        credentials
+      )
       .pipe(
         tap((response) => {
-          this.access = response.access;
+          localStorage.setItem('access_token', response.access);
+          localStorage.setItem('refresh_token', response.refresh);
+          this.loggedIn.next(true);
         })
       );
   }
 
-  private handleAuthResponse(response: AuthResponse): void {
-    this.access = response.access;
-    this.refresh = response.refresh;
-    this.getUserDataFromToken(response.access);
+  logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    this.loggedIn.next(false);
+    this.router.navigate(['/']);
+  }
+  private getAccessToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+  getProfile() {
+    const accessToken = this.getAccessToken();
+    if (!accessToken) {
+      console.error('Access Token not available.');
+      return;
+    }
+
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${accessToken}`
+    );
+
+    return this.http.get(`${this.apiUrl}/profile/`, { headers });
   }
 
-  private getUserDataFromToken(token: string): void {
-    const decodedToken: any = this.jwtHelper.decodeToken(token);
-
-    const userData: User = {
-      id: decodedToken.user_id,
-      first_name: decodedToken.first_name,
-      last_name: decodedToken.last_name,
-      email: decodedToken.email,
-      password: undefined,
-      phone: decodedToken.phone,
-      address: decodedToken.address,
-      city: decodedToken.city,
-      state: decodedToken.state,
-      zip_code: decodedToken.zip_code,
-      country: decodedToken.country,
-      date_joined: new Date(decodedToken.date_joined),
-      last_login: new Date(decodedToken.last_login),
-      is_staff: decodedToken.is_staff,
-    };
-
-    this.userSubject.next(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+  updateProfile(data: any) {
+    return this.http.put(`${this.apiUrl}/profile/`, data);
   }
 
-  logout(): void {
-    this.access = null;
-    this.refresh = null;
-    this.userSubject.next(null);
-    localStorage.removeItem('user');
-  }
-
-  getAccessToken(): string | null {
-    return this.access;
-  }
-
-  isAuthenticated(): boolean {
-    return this.access != null;
+  isLoggedIn() {
+    return this.loggedIn.asObservable();
   }
 }
