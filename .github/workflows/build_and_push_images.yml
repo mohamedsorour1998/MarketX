@@ -49,8 +49,11 @@ jobs:
 
     - name: Update MarketX-backend deployment on GKE
       run: |
-        kubectl set image deployment/backend-deployment marketx-backend=mohamedsorour/marketx-backend:latest
+        kubectl delete  deployment backend-deployment 
+        kubectl apply -f https://raw.githubusercontent.com/mohamedsorour1998/MarketX/master/MarketX-backend/backend-deployment.yaml
+
 
     - name: Update MarketX-frontend deployment on GKE
       run: |
-        kubectl set image deployment/frontend-deployment marketx-frontend=mohamedsorour/marketx-frontend:latest
+        kubectl delete  deployment frontend-deployment 
+        kubectl apply -f https://raw.githubusercontent.com/mohamedsorour1998/MarketX/master/MarketX-frontend/frontend-deployment.yaml
