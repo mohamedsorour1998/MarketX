@@ -49,8 +49,8 @@ jobs:
 
     - name: Update MarketX-backend deployment on GKE
       run: |
-        kubectl set image deployment/backend-deployment-service backend-container=mohamedsorour/marketx-backend:latest
+        kubectl set image deployment/backend-deployment backend-container=mohamedsorour/marketx-backend:latest
 
     - name: Update MarketX-frontend deployment on GKE
       run: |
-        kubectl set image deployment/frontend-deployment-service frontend-container=mohamedsorour/marketx-frontend:latest
+        kubectl set image deployment/frontend-deployment frontend-container=mohamedsorour/marketx-frontend:latest
