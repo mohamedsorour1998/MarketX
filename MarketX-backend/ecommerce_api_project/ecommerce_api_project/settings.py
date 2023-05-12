@@ -84,6 +84,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'Sorour_1998',
         # 'HOST': 'postgres-deployment-service',
+        # 'HOST': '34.30.114.2',
         'HOST': 'localhost',
         'PORT': '5432',
     }

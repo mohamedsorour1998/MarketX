@@ -1,0 +1,15 @@
+<div *ngIf="order" class="card">
+  <div class="card-header">Order Details</div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Order ID: {{ order!.id }}</li>
+    <li class="list-group-item">User ID: {{ order!.user }}</li>
+    <li class="list-group-item">Product ID: {{ order!.product }}</li>
+    <li class="list-group-item">Quantity: {{ order!.quantity }}</li>
+    <!-- <li class="list-group-item">Date Ordered: {{ order.date_ordered }}</li> -->
+  </ul>
+  <div class="card-body">
+    <button class="btn btn-primary" (click)="checkout()">
+      Proceed to Checkout
+    </button>
+  </div>
+</div>

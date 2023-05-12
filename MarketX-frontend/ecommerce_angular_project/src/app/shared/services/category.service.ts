@@ -7,15 +7,11 @@ import { Category } from '../models/category.model';
   providedIn: 'root',
 })
 export class CategoryService {
-  private readonly API_URL = 'https://your-api.example.com/categories/';
+  private apiUrl = 'http://localhost:8000/my_ecommerce_api/categories';
 
   constructor(private http: HttpClient) {}
 
-  getAllCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.API_URL);
-  }
-
-  getCategory(categoryId: number): Observable<Category> {
-    return this.http.get<Category>(`${this.API_URL}${categoryId}/`);
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.apiUrl);
   }
 }

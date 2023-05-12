@@ -36,8 +36,10 @@ class UserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     # using jwt token to authenticate
-    authentication_classes = (JWTAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (JWTAuthentication, )
+    # permission_classes = (IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
+
 
 
 # this is the view for the category model
@@ -51,8 +53,7 @@ class CategoryRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     # using jwt token to authenticate
-    authentication_classes = (JWTAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
 
 # this is the view for the product model
@@ -77,9 +78,7 @@ class ProductSearch(viewsets.ModelViewSet):
 class ProductRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    # using jwt token to authenticate
-    authentication_classes = (JWTAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
 
 # this is the view for the order model
@@ -88,8 +87,10 @@ class ProductRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
     # using jwt token to authenticate
-    authentication_classes = (JWTAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (JWTAuthentication, )
+    # permission_classes = (IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
+
     queryset = Order.objects.all()
 
     def get_queryset(self):
@@ -101,23 +102,23 @@ class OrderListCreateView(generics.ListCreateAPIView):
         orders = Order.objects.filter(user=user)
         return orders
 
-    def create(self, request, *args, **kwargs):
-        # get the user id from the url
-        user_id = self.kwargs['pk']
-        # get the user object
-        user = User.objects.get(id=user_id)
-        # get the data from the request
-        data = request.data
-        # add the user to the data
-        data['user'] = user.id
-        # create the order
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data,
-                        status=status.HTTP_201_CREATED,
-                        headers=headers)
+    # def create(self, request, *args, **kwargs):
+    #     # get the user id from the url
+    #     user_id = self.kwargs['pk']
+    #     # get the user object
+    #     user = User.objects.get(id=user_id)
+    #     # get the data from the request
+    #     data = request.data
+    #     # add the user to the data
+    #     data['user'] = user.id
+    #     # create the order
+    #     serializer = self.get_serializer(data=data)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_create(serializer)
+    #     headers = self.get_success_headers(serializer.data)
+    #     return Response(serializer.data,
+    #                     status=status.HTTP_201_CREATED,
+    #                     headers=headers)
 
 
 class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
@@ -194,32 +195,41 @@ class OrderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class CheckoutListView(generics.ListAPIView):
     serializer_class = CheckoutSerializer
 
-    # using jwt token to authenticate
-    authentication_classes = (JWTAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    # Using jwt token to authenticate
+    # authentication_classes = (JWTAuthentication, )
+    # permission_classes = (IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
     def get_queryset(self):
-        # get the user id from the url
+        # Get the user id from the url
         user_id = self.kwargs['pk']
-        # get the user object
-        user = User.objects.get(id=user_id)
-        # get all orders for this user
-        orders = Order.objects.filter(user=user)
-        # get all checkouts for this user
-        checkouts = Checkout.objects.filter(order__in=orders)
-        # check if the order belongs to the user if so return the checkout
-        if checkouts:
-            return checkouts
-        else:
-            return Response(
-                {'error': 'You are not allowed to access this checkout'},
-                status=status.HTTP_403_FORBIDDEN)
+        # Get all checkouts for this user
+        checkouts = Checkout.objects.filter(user__id=user_id)
+        
+        return checkouts
 
-# this is the view for the user 
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        if not queryset:
+            return Response(
+                {'error': 'You have no checkout data!'},
+                status=status.HTTP_403_FORBIDDEN)
+        
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+# this is the view for the user
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (AllowAny, )
 
 
 class UserProfile(generics.RetrieveUpdateAPIView):

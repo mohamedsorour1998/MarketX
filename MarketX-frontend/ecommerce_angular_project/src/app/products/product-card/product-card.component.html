@@ -1,1 +1,13 @@
-<p>product-card works!</p>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <img [src]="product.image_link" class="img-fluid" alt="{{ product.name }}" />
+    </div>
+    <div class="col-md-6">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <h4>{{ product.price}}$</h4>
+      <button (click)="buyNow()" class="btn btn-primary">Buy Now</button>
+    </div>
+  </div>
+</div>

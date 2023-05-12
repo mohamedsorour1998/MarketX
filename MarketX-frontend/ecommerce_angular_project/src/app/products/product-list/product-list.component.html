@@ -1,1 +1,52 @@
-<p>product-list works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form class="d-flex">
+        <input
+          class="form-control me-2"
+          [(ngModel)]="searchQuery"
+          name="searchQuery"
+          placeholder="Search"
+        />
+        <select
+          class="form-select me-2"
+          [(ngModel)]="selectedCategory"
+          name="selectedCategory"
+        >
+          <option value="">All Categories</option>
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+        <button
+          class="btn btn-outline-primary me-2"
+          type="button"
+          (click)="searchProducts()"
+        >
+          Search
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="filterProducts()"
+        >
+          Filter
+        </button>
+      </form>
+      <br />
+      <br />
+    </div>
+    <div class="col-md-4" *ngFor="let product of products">
+      <img
+        src="{{ product.image_link }}"
+        alt="{{ product.name }}"
+        class="img-responsive"
+      />
+      <h2>{{ product.name }}</h2>
+      <h3>{{ product.price }}$</h3>
+      <button class="btn btn-success" (click)="onSelectProduct(product)">
+        View Details
+      </button>
+    </div>
+  </div>
+</div>

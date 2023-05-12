@@ -1,1 +1,25 @@
-<p>category-list works!</p>
+<div class="row">
+  <div class="col-md-4" *ngFor="let category of categories">
+    <div class="card mb-4">
+      <img
+        [src]="category.image_link"
+        class="card-img-top"
+        [alt]="category.name"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ category.name }}</h5>
+        <input
+          type="radio"
+          [(ngModel)]="selectedCategory"
+          [value]="category"
+          name="selectedCategory"
+        />
+        <label>Choose this category</label>
+      </div>
+    </div>
+  </div>
+</div>
+<a
+  (click)="viewProducts()"
+  class="btn btn-primary"
+>View Products</a>

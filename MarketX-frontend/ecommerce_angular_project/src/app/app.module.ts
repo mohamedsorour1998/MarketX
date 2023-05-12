@@ -11,6 +11,7 @@ import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { OrderModule } from './order/order.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
     ReactiveFormsModule,
     SharedModule,
     ProductsModule,
+    OrderModule,
     CategoriesModule,
     UsersModule,
     AuthModule,

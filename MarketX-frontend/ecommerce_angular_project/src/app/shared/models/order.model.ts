@@ -2,9 +2,8 @@ import { Product } from './product.model';
 
 export interface Order {
   id: number;
+  quantity: number;
+  is_complete: boolean;
   user: number;
-  products: Product[];
-  total: number;
-  created_at: Date;
-  updated_at: Date;
+  product: number;
 }

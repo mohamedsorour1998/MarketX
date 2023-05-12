@@ -67,6 +67,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Category(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
+    image_link = models.URLField(max_length=200, null=True)
 
     def __str__(self):
         return self.name
@@ -77,6 +78,7 @@ class Product(models.Model):
     description = models.TextField()
     price = models.FloatField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    image_link = models.URLField(max_length=200, null=True)
 
     def __str__(self):
         return self.name

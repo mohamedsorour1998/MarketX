@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import jwtDecode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root',
@@ -64,5 +65,12 @@ export class AuthService {
 
   isLoggedIn() {
     return this.loggedIn.asObservable();
+  }
+  getUserIdFromToken(): number | null {
+    const token = localStorage.getItem('access_token');
+    if (!token) return null;
+
+    const decodedToken: any =  jwtDecode(token);
+    return decodedToken.user_id;
   }
 }
