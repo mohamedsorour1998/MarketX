@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
 })
 export class UserService {
   private readonly API_URL_USER_PROFILE =
-    'http://127.0.0.1:8000/my_ecommerce_api/profile/';
+    'http://10.52.11.103:8000/my_ecommerce_api/profile/';
   // private readonly API_URL_USER_PROFILE = 'http://127.0.0.1:8000/my_ecommerce_api/profile/';
 
   constructor(private http: HttpClient) {}
