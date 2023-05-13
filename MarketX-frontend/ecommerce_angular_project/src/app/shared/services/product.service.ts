@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
-  private baseUrl = 'http://10.52.11.103:8000/my_ecommerce_api/products/';
+  private baseUrl = 'http://10.52.13.195:8000/my_ecommerce_api/products/';
   products: Product[] = [];
 
   // Add BehaviorSubject to store the products

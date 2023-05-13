@@ -7,7 +7,7 @@ import { Checkout } from '../models/checkout.model';
   providedIn: 'root',
 })
 export class OrderService {
-  private apiUrl = 'http://10.52.11.103:8000/my_ecommerce_api';
+  private apiUrl = 'http://10.52.13.195:8000/my_ecommerce_api';
   // orderSource is a BehaviorSubject that will hold the current order
   // BehaviorSubject is a type of Subject that allows us to set the initial value of the observable
   private orderSource = new BehaviorSubject<Order | null>(null);
