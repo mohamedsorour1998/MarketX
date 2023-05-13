@@ -7,7 +7,7 @@ import { Category } from '../models/category.model';
   providedIn: 'root',
 })
 export class CategoryService {
-  private apiUrl = 'http://10.52.13.195:8000/my_ecommerce_api/categories';
+  private apiUrl = 'http://35.239.65.151:8000/my_ecommerce_api/categories';
 
   constructor(private http: HttpClient) {}
 

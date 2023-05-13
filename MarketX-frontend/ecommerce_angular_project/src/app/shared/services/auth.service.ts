@@ -9,7 +9,7 @@ import jwtDecode from "jwt-decode";
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly apiUrl = 'http://10.52.13.195:8000/my_ecommerce_api';
+  private readonly apiUrl = 'http://35.239.65.151:8000/my_ecommerce_api';
   private loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient, private router: Router) {
