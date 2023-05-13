@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Date Ordered</th>
+            <th scope="col">Address</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">Zip Code</th>
+            <th scope="col">Country</th>
+            <th scope="col">Payment Method</th>
+            <th scope="col">Order Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orderDetails">
+            <td>{{ order.order }}</td>
+            <td>{{ order.product }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.date_ordered | date: 'short' }}</td>
+            <td>{{ order.address }}</td>
+            <td>{{ order.city }}</td>
+            <td>{{ order.state }}</td>
+            <td>{{ order.zip_code }}</td>
+            <td>{{ order.country }}</td>
+            <td>{{ order.payment_method }}</td>
+            <td>{{ order.is_complete ? 'Completed' : 'Pending' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

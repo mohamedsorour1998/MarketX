@@ -108,7 +108,7 @@ class Checkout(models.Model):
     quantity = models.IntegerField(null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     is_complete = models.BooleanField(default=False)
-    payment_method = models.CharField(max_length=50, default='Credit Card')
+    payment_method = models.CharField(max_length=50, default='Cash On Delivery')
 
     def save(self, *args, **kwargs):
         # get user address details from the user model

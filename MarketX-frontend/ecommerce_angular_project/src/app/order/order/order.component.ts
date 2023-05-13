@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from '../../shared/models/order.model';
 import { Subscription } from 'rxjs';
 import { OrderService } from '../../shared/services/order.service';
@@ -14,7 +14,11 @@ export class OrderComponent implements OnInit, OnDestroy {
   // orderSubscription is a Subscription that will hold the subscription to the currentOrder$ observable
   orderSubscription: Subscription;
 
-  constructor(private orderService: OrderService, private router: Router) {}
+  constructor(
+    private orderService: OrderService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.orderSubscription = this.orderService.currentOrder$.subscribe(
@@ -33,6 +37,6 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   checkout() {
-    this.router.navigate(['/checkout']);
+    this.router.navigate(['checkout'], { relativeTo: this.route });
   }
 }

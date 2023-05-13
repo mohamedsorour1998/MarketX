@@ -1,10 +1,15 @@
 export interface Checkout {
-  first_name: string;
-  last_name: string;
-  email: string;
+  id: number;
   address: string;
   city: string;
   state: string;
-  zip: string;
-  products: { product: number; quantity: number }[];
+  zip_code: string;
+  country: string;
+  product: string;
+  quantity: number;
+  date_ordered: string;
+  is_complete: boolean;
+  payment_method: string;
+  user: number;
+  order: number;
 }

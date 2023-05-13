@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Order } from '../models/order.model';
+import { Checkout } from '../models/checkout.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -36,5 +37,10 @@ export class OrderService {
   }
   setOrder(order: Order): void {
     this.orderSource.next(order);
+  }
+  getCheckout(userId: number): Observable<Checkout[]> {
+    return this.http.get<Checkout[]>(
+      `${this.apiUrl}/users/${userId}/orders/checkout/`
+    );
   }
 }
