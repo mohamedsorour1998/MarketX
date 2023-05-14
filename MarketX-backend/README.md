@@ -1,53 +1,58 @@
 # Ecommerce API
 
-This project is an ecommerce API built using Django Rest Framework (DRF) that allows users to browse and buy products 
-online. The API supports secure user authentication using tokens and allows users to manage categories and products.
+This project is an ecommerce API built using Django Rest Framework (DRF) that allows users to browse and buy products online. The API supports secure user authentication using custom tokens and an `AbstractBaseUser` implementation. It also supports management of categories and products, and allows for Cross-Origin Resource Sharing (CORS).
 
 ## Demo
 
-A working demo of the API can be hosted on a live server or presented through a video on a local environment.
-this is a link to the demo video: https://www.linkedin.com/feed/update/urn:li:activity:7049455662342234112/
+A working demo of the API can be hosted on a live server or presented through a video on a local environment. This is a link to the demo video: https://www.linkedin.com/feed/update/urn:li:activity:7049455662342234112/
 
 ## Key Features
 
-1. User authentication using tokens
-2. Category management system
-3. Product catalog with search and filter functionality
-4. User management system
-5. Checkout functionality
+1. User authentication using custom tokens and `AbstractBaseUser`
+2. CORS support for cross-domain requests
+3. Category management system
+4. Product catalog with search and filter functionality
+5. User management system
+6. Checkout functionality
 
 ## Requirements
 
 1. Django Rest Framework (DRF)
 2. PostgreSQL database
+3. django-cors-headers
 
 ## Installation
 
 1. Clone the repository:
 
-git clone https://github.com/mohamedsorour1998/MarketX.git
-
+```
+git clone https://github.com/your_username/your_repository.git
+```
 
 2. Change to the project directory:
 
-cd MarketX-backend/ecommerce_api_project/
-
+```
+cd your_project_directory
+```
 
 3. Create a virtual environment and activate it:
 
+```
 python3 -m venv venv
 source venv/bin/activate
-
+```
 
 4. Install the required packages:
 
+```
 pip install -r requirements.txt
-
+```
 
 5. Set up the PostgreSQL database (refer to the [official documentation](https://www.postgresql.org/docs/current/tutorial-install.html) for installation instructions).
 
 6. Update the `DATABASES` setting in `settings.py` with your PostgreSQL database credentials:
-python
+
+```python
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -58,17 +63,40 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+```
 
+7. Enable CORS by adding `'corsheaders.middleware.CorsMiddleware'` to your `MIDDLEWARE` in `settings.py` and configuring the `CORS_ALLOWED_ORIGINS` setting:
 
-7. Run the initial migrations:
+```python
+INSTALLED_APPS = [
+    ...
+    'corsheaders',
+    ...
+]
 
+MIDDLEWARE = [
+    ...
+    'corsheaders.middleware.CorsMiddleware',
+    ...
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://example.com",
+    "https://www.example.com",
+]
+```
+
+8. Run the initial migrations:
+
+```
 python manage.py migrate
+```
 
+9. Start the development server:
 
-8. Start the development server:
-
+```
 python manage.py runserver
-
+```
 
 ## API Endpoints
 
@@ -93,7 +121,7 @@ python manage.py runserver
 
 ### Authentication
 
-* Obtain a token pair: `POST /token/`
+* Obtain a custom token pair: `POST /token/`
 * Refresh a token: `POST /token/refresh/`
 
 ## Models
@@ -149,7 +177,10 @@ python manage.py runserver
 * `is_complete`
 * `payment_method`
 
-
 ## Documentation
 
-This README serves as a user manual and technical documentation for the project.
+This README servesas a user manual and technical documentation for the project. Please refer to the [Django documentation](https://docs.djangoproject.com/en/stable/) and the [Django Rest Framework documentation](https://www.django-rest-framework.org/) for further information on working with Django and DRF, respectively.
+
+For implementing `AbstractBaseUser`, consult the [official Django documentation on custom user models](https://docs.djangoproject.com/en/4.1/topics/auth/customizing/#substituting-a-custom-user-model). Additionally, you may want to check out the [Django Rest Framework SimpleJWT documentation](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/index.html) for information on working with token-based authentication.
+
+For the `django-cors-headers` library, consult the [official documentation](https://github.com/adamchainz/django-cors-headers) for more information on CORS and how to configure it properly in your project.
