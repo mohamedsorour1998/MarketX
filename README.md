@@ -1,6 +1,7 @@
-# Ecommerce API and Web Application
+# MarketX: Cloud Full Stack Ecommerce Project
 
 This project is an ecommerce API and web application built using Django, Django Rest Framework (DRF), and Angular. Users can browse and buy products online through a user-friendly interface. The API supports secure user authentication using JWT tokens stored in local storage, with custom token handling and decoding for user identification. Cross-Origin Resource Sharing (CORS) is also supported for cross-domain requests. The application is deployed on Google Cloud Platform (GCP) using Google Kubernetes Engine (GKE), and GitHub Actions is utilized for CI/CD.
+SEE IT LIVE => https://www.linkedin.com/feed/update/urn:li:activity:7063481349159948289/
 
 ## Key Features
 
