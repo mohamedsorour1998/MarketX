@@ -1,4 +1,4 @@
-# MarketX: Cloud Full Stack Ecommerce Project
+![Screenshot 2023-08-30 220309](https://github.com/mohamedsorour1998/MarketX/assets/110028481/f4c0cde8-0055-40a2-8e21-f93b1c6d8160)# MarketX: Cloud Full Stack Ecommerce Project
 
 This project is an ecommerce API and web application built using Django, Django Rest Framework (DRF), and Angular. Users can browse and buy products online through a user-friendly interface. The API supports secure user authentication using JWT tokens stored in local storage, with custom token handling and decoding for user identification. Cross-Origin Resource Sharing (CORS) is also supported for cross-domain requests. The application is deployed on Google Cloud Platform (GCP) using Google Kubernetes Engine (GKE), and GitHub Actions is utilized for CI/CD.
 SEE IT LIVE => https://www.linkedin.com/feed/update/urn:li:activity:7063481349159948289/
@@ -31,35 +31,10 @@ SEE IT LIVE => https://www.linkedin.com/feed/update/urn:li:activity:706348134915
 
 Refer to the `README.md` files inside the backend and frontend directories for the installation and setup instructions for each part.
 
-## API Endpoints
-
-### Users
-
-* List and create users: `GET, POST /users/`
-* Retrieve, update, and delete a specific user: `GET, PUT, DELETE /users/<int:pk>/`
-* List and create orders for a specific user: `GET, POST /users/<int:pk>/orders/`
-* Retrieve, update, and delete a specific order: `GET, PUT, DELETE /users/<int:pk>/orders/<int:pk2>/`
-* List and create checkouts for a specific user: `GET, POST /users/<int:pk>/orders/checkout/`
-
-### Categories
-
-* List and create categories: `GET, POST /categories/`
-* Retrieve, update, and delete a specific category: `GET, PUT, DELETE /categories/<int:pk>/`
-
-### Products
-
-* List and create products, also filter them by category: `GET, POST /products/`
-* Search for products by keyword: `GET /products/search/`
-* Retrieve, update, and delete a specific product: `GET, PUT, DELETE /products/<int:pk>/`
-
-### Authentication
-
-* Obtain a JWT token pair: `POST /token/`
-* Refresh a token: `POST /token/refresh/`
-
 ## Deployment on GCP using GKE
 
 The application is deployed on Google Cloud Platform using Google Kubernetes Engine. Refer to the [official GCP documentation](https://cloud.google.com/kubernetes-engine/docs) for information on deploying applications with GKE.
+![Screenshot 2023-08-30 220309](https://github.com/mohamedsorour1998/MarketX/assets/110028481/bd33e04a-43f0-451a-9e67-b302411aa188)
 
 ## CI/CD using GitHub Actions
 
@@ -84,3 +59,7 @@ If you have any suggestions, improvements, or bugs to report, please open an iss
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Authors
+
+- Mohamed Sorour - [@mohamedsorour1998](mohamedsorour1998)
