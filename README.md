@@ -1,4 +1,4 @@
-![Screenshot 2023-08-30 220309](https://github.com/mohamedsorour1998/MarketX/assets/110028481/f4c0cde8-0055-40a2-8e21-f93b1c6d8160)# MarketX: Cloud Full Stack Ecommerce Project
+# MarketX: Cloud Full Stack Ecommerce Project
 
 This project is an ecommerce API and web application built using Django, Django Rest Framework (DRF), and Angular. Users can browse and buy products online through a user-friendly interface. The API supports secure user authentication using JWT tokens stored in local storage, with custom token handling and decoding for user identification. Cross-Origin Resource Sharing (CORS) is also supported for cross-domain requests. The application is deployed on Google Cloud Platform (GCP) using Google Kubernetes Engine (GKE), and GitHub Actions is utilized for CI/CD.
 SEE IT LIVE => https://www.linkedin.com/feed/update/urn:li:activity:7063481349159948289/
@@ -34,7 +34,7 @@ Refer to the `README.md` files inside the backend and frontend directories for t
 ## Deployment on GCP using GKE
 
 The application is deployed on Google Cloud Platform using Google Kubernetes Engine. Refer to the [official GCP documentation](https://cloud.google.com/kubernetes-engine/docs) for information on deploying applications with GKE.
-![Screenshot 2023-08-30 220309](https://github.com/mohamedsorour1998/MarketX/assets/110028481/bd33e04a-43f0-451a-9e67-b302411aa188)
+![Screenshot 2023-08-30 220309](https://github.com/mohamedsorour1998/MarketX/assets/110028481/f4c0cde8-0055-40a2-8e21-f93b1c6d8160)
 
 ## CI/CD using GitHub Actions
 
